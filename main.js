@@ -57,7 +57,7 @@ function renderTable() {
     table.innerHTML += `
                     <tr>
                         <td>${item.name}</td>
-                        <td>${item.quantity}</td>
+                        <td><input type="number" value="${item.quantity}" onchange="updateQuantitiy(${index},this.value)"></td>
                         <td>
                             <button onclick="updateQuantity(${index})">更新</button>
                             <button onclick="deleteDrink(${index})">削除</button>
