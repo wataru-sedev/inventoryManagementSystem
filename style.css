@@ -1,0 +1,45 @@
+/* 基本デザイン */
+body {
+  font-family: Arial, sans-serif;
+  margin: 10px;
+  padding: 10px;
+}
+
+/* ボタンをタップしやすく */
+button {
+  font-size: 16px;
+  padding: 10px;
+  margin: 5px;
+}
+
+/* 📱 スマホ対応 */
+@media (max-width: 768px) {
+  /* テーブルの横スクロールを許可 */
+  .table-container {
+      overflow-x: auto;
+  }
+  
+  table {
+      width: 100%;
+      border-collapse: collapse;
+  }
+
+  th, td {
+      padding: 10px;
+      font-size: 14px;
+  }
+  
+  /* ボタンを縦並びに */
+  td button {
+      display: block;
+      width: 100%;
+      margin: 5px 0;
+  }
+  
+  /* 入力フォームの調整 */
+  input {
+      width: 100%;
+      padding: 8px;
+      font-size: 16px;
+  }
+}
