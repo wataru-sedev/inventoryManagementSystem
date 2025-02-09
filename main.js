@@ -84,33 +84,6 @@ async function initializeInventory() {
 
 let inventory = drinks;
 
-async function toggleEdit() {
-  const editSection = document.getElementById("editSection");
-  if (editSection.style.display === "none") {
-    editSection.style.display = "block";
-  } else {
-    editSection.style.display = "none";
-  }
-}
-
-async function resetInventory() {
-  try {
-    const querySnapshot = await getDocs(collection(db, "inventory"));
-    querySnapshot.forEach(async (doc) => {
-      await deleteDoc(doc.ref);
-    });
-
-    drinks.forEach(async (drink) => {
-      await addDoc(collection(db, "inventory"), drink);
-    });
-
-    alert("在庫がリセットされました！");
-    loadInventory();
-  } catch (error) {
-    console.error("リセットエラー: ", error);
-  }
-}
-
 function renderTable() {
   const table = document.getElementById("inventoryTable");
   table.innerHTML = "";
@@ -121,32 +94,11 @@ function renderTable() {
                         <td><input type="number" value="${item.quantity}" onchange="updateQuantity(${index},this.value)"></td>
                         <td>
                             <button onclick="updateQuantity(${index}, document.querySelectorAll('input[type=number]')[${index}].value)">更新</button>
-                            <button onclick="deleteDrink(${index})">削除</button>
+                            
                         </td>
                     </tr>
                 `;
   });
-}
-
-async function addDrink() {
-  const name = document.getElementById("drinkName").value.trim();
-  const quantity = parseInt(document.getElementById("drinkQuantity").value, 10);
-  if (!name) {
-    alert("飲み物の名前を入力してください。");
-    return;
-  }
-  if (isNaN(quantity) || quantity < 0) {
-    alert("在庫数は0以上の数値を入力してください。");
-    return;
-  }
-
-  try {
-    await addDoc(collection(db, "inventory"), { name, quantity });
-    alert("在庫データを追加しました！");
-    loadInventory(); // Firestoreのデータを再読み込み
-  } catch (error) {
-    console.error("データ追加エラー: ", error);
-  }
 }
 
 async function updateQuantity(index, quantity) {
@@ -162,17 +114,6 @@ async function updateQuantity(index, quantity) {
     loadInventory();
   } catch (error) {
     console.error("更新エラー: ", error);
-  }
-}
-
-async function deleteDrink(index) {
-  try {
-    const docRef = doc(db, "inventory", inventory[index].id);
-    await deleteDoc(docRef);
-    alert("在庫データを削除しました！");
-    loadInventory(); // Firestoreのデータを再読み込み
-  } catch (error) {
-    console.error("削除エラー: ", error);
   }
 }
 
@@ -196,6 +137,63 @@ async function loadInventory() {
 document.addEventListener("DOMContentLoaded", () => {
   loadInventory();
 });
+
+async function toggleEdit() {
+  const editSection = document.getElementById("editSection");
+  if (editSection.style.display === "none") {
+    editSection.style.display = "block";
+  } else {
+    editSection.style.display = "none";
+  }
+}
+async function addDrink() {
+  const name = document.getElementById("drinkName").value.trim();
+  const quantity = parseInt(document.getElementById("drinkQuantity").value, 10);
+  if (!name) {
+    alert("飲み物の名前を入力してください。");
+    return;
+  }
+  if (isNaN(quantity) || quantity < 0) {
+    alert("在庫数は0以上の数値を入力してください。");
+    return;
+  }
+
+  try {
+    await addDoc(collection(db, "inventory"), { name, quantity });
+    alert("在庫データを追加しました！");
+    loadInventory(); // Firestoreのデータを再読み込み
+  } catch (error) {
+    console.error("データ追加エラー: ", error);
+  }
+}
+async function resetInventory() {
+  try {
+    const querySnapshot = await getDocs(collection(db, "inventory"));
+    querySnapshot.forEach(async (doc) => {
+      await deleteDoc(doc.ref);
+    });
+
+    drinks.forEach(async (drink) => {
+      await addDoc(collection(db, "inventory"), drink);
+    });
+
+    alert("在庫がリセットされました！");
+    loadInventory();
+  } catch (error) {
+    console.error("リセットエラー: ", error);
+  }
+}
+
+// async function deleteDrink(index) {
+//   try {
+//     const docRef = doc(db, "inventory", inventory[index].id);
+//     await deleteDoc(docRef);
+//     alert("在庫データを削除しました！");
+//     loadInventory(); // Firestoreのデータを再読み込み
+//   } catch (error) {
+//     console.error("削除エラー: ", error);
+//   }
+// }
 
 window.updateQuantity = updateQuantity;
 window.deleteDrink = deleteDrink;
