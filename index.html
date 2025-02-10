@@ -9,23 +9,24 @@
     <h2>在庫管理システム</h2>    
     <div class="table-container">
         <table border="1">
+            <button id="updateInventory">更新</button>
             <thead>
                 <tr>
+                    <th>ドリンクID</th>
                     <th>ドリンク名</th>
                     <th>在庫数</th>
-                    <th>操作</th>
                 </tr>
             </thead>
             <tbody id="inventoryTable"></tbody>
         </table>
     </div>
-    <button onclick="toggleEdit()">編集</button>
+    <!-- <button onclick="toggleEdit()">編集</button>
     <div id="editSection" style="display: none;">
         <input type="text" id="drinkName" placeholder="ドリンク名">
         <input type="number" id="drinkQuantity" placeholder="数量">
         <button onclick="addDrink()">追加</button>
         <button onclick="resetInventory()">在庫リセット</button>
-    </div>
+    </div> -->
 
     <script type="module" src="./main.js"></script>
     
