@@ -75,7 +75,6 @@ function renderTable() {
     const row = document.createElement("tr");
 
     row.innerHTML = `
-            <td>${item.id}</td>
             <td>${item.japaneseName}</td>
             <td><input type="number" value="${item.quantity}" onchange="updateQuantity(${index}, this.value)"></td>
         `;
