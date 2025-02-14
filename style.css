@@ -36,6 +36,8 @@ button {
 
 button:hover {
   background-color: #45a049;
+  color: #fff;
+  cursor: pointer;
 }
 
 /* 数量入力フィールド */
