@@ -1,10 +1,8 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
 import {
   getFirestore,
   collection,
   getDocs,
-  updateDoc,
   writeBatch,
   doc,
   setDoc,
@@ -51,14 +49,14 @@ const drinks = [
 async function initializeInventory() {
   const inventoryRef = collection(db, "inventory");
 
-  for (const drink of drinks) {
-    const docRef = doc(inventoryRef, drink.name); // ドキュメント ID にドリンク名を設定
+  for (const item of drinks) {
+    const docRef = doc(inventoryRef, item.name); // ドキュメント ID にドリンク名を設定
 
     try {
-      await setDoc(docRef, { quantity: drink.quantity }); // フィールドとして quantity を登録
-      console.log(`${drink.name} の在庫を Firestore に登録しました`);
+      await setDoc(docRef, { quantity: item.quantity }); // フィールドとして quantity を登録
+      console.log(`${item.name} の在庫を Firestore に登録しました`);
     } catch (error) {
-      console.error(`エラー: ${drink.name} の登録に失敗`, error);
+      console.error(`エラー: ${item.name} の登録に失敗`, error);
     }
   }
 
@@ -97,6 +95,7 @@ async function updateInventory() {
       batch.update(docRef, { quantity: item.quantity });
     });
     await batch.commit();
+
     alert("在庫データを更新しました");
     loadInventory();
   } catch (error) {
@@ -107,12 +106,12 @@ async function updateInventory() {
 async function loadInventory() {
   try {
     const querySnapshot = await getDocs(collection(db, "inventory"));
-    inventory = drinks.map((drink) => {
-      const docData = querySnapshot.docs.find((doc) => doc.id === drink.name);
+    inventory = drinks.map((item) => {
+      const docData = querySnapshot.docs.find((doc) => doc.id === item.name);
       return {
-        id: drink.name,
-        name: drink.name,
-        japaneseName: drink.japaneseName,
+        id: item.name,
+        name: item.name,
+        japaneseName: item.japaneseName,
         quantity: docData ? docData.data().quantity : 0, //firestoreにデータがなければ0にする
       };
     });
