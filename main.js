@@ -59,9 +59,7 @@ async function initializeInventory() {
       console.error(`エラー: ${item.name} の登録に失敗`, error);
     }
   }
-
-  alert("在庫データを Firestore に登録しました！");
-  loadInventory(); // Firestore のデータを取得して UI を更新
+  loadInventory();
 }
 
 let inventory = drinks;
