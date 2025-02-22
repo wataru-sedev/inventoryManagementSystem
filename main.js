@@ -110,7 +110,7 @@ async function loadInventory() {
         id: item.name,
         name: item.name,
         japaneseName: item.japaneseName,
-        quantity: docData ? docData.data().quantity : 0, //firestoreにデータがなければ0にする
+        quantity: docData ? docData.data().quantity : 0,
       };
     });
     renderTable();
