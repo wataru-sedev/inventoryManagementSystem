@@ -1,15 +1,14 @@
-/* 基本デザイン */
 body {
   font-family: Arial, sans-serif;
   margin: 10px;
   padding: 10px;
 }
 
-/* テーブルの基本設定 */
 table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
+  border-radius: 4px;
 }
 
 th, td {
@@ -22,7 +21,7 @@ th {
   background-color: #f5f5f5;
   font-weight: bold;
 }
-/* ボタンスタイル */
+
 button {
   font-size: 16px;
   padding: 10px 20px;
@@ -40,7 +39,6 @@ button:hover {
   cursor: pointer;
 }
 
-/* 数量入力フィールド */
 input[type="number"] {
   width: 70px;
   padding: 8px;
@@ -48,9 +46,7 @@ input[type="number"] {
   border-radius: 4px;
 }
 
-/*  スマホ対応 */
 @media (max-width: 768px) {
-  /* テーブルの横スクロールを許可 */
   .table-container {
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
@@ -61,44 +57,43 @@ input[type="number"] {
       border-collapse: collapse;
   }
 
-/* 列幅の調整 */
-th, td {
-  min-width: 80px;  /* 最小幅を設定 */
-  padding: 12px 8px;
-  font-size: 14px;
-}
-  /* ドリンクID列を小さく */
-  td:first-child, th:first-child {
-    width: 20%;
-}
- /* ドリンク名列を広く */
- td:nth-child(2), th:nth-child(2) {
-  width: 50%;
-  min-width: 120px;  /* ドリンク名が途切れないよう最小幅を設定 */
-}
-/* 在庫数列を適度な幅に */
-td:last-child, th:last-child {
-  width: 30%;
-}
-
-/* ボタンを縦並びに */
-  td button {
-      display: block;
-      width: 100%;
-      margin: 5px 0;
+  th, td {
+    min-width: 80px; 
+    padding: 12px 8px;
+    font-size: 14px;
   }
-  /* 入力フィールドの調整 */
-  input[type="number"] {
-    width: 100%;
-    max-width: 80px;
-    font-size: 16px;  /* タップしやすい大きさに */
-    padding: 8px 4px;
-}
-  /* ボタンの調整 */
-  button {
-    width: 100%;
-    margin: 10px 0;
-    padding: 12px;
-    font-size: 16px;
-}
+    
+    td:first-child, th:first-child {
+      width: 20%;
+  }
+  
+  td:nth-child(2), th:nth-child(2) {
+    width: 50%;
+    min-width: 120px; 
+  }
+  
+  td:last-child, th:last-child {
+    width: 30%;
+  }
+
+
+    td button {
+        display: block;
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      max-width: 80px;
+      font-size: 16px;  
+      padding: 8px 4px;
+  }
+
+    button {
+      width: 100%;
+      margin: 10px 0;
+      padding: 12px;
+      font-size: 16px;
+  }
 }
