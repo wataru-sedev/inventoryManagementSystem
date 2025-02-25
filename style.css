@@ -12,13 +12,11 @@ table {
   border-radius: 4px;
 }
 
-.column1{width: 70%;}
+.column1{width: 50%;}
 
 .column2{width: 20%;}
 
-.column3{width: 10%;}
-
-
+.column3{width: 20%;}
 
 th, td {
   padding: 12px 8px;
@@ -91,8 +89,6 @@ input[type="checkbox"]:checked {
 }
 
 
-
-
 @media (max-width: 768px) {
   .table-container {
       overflow-x: auto;
@@ -127,11 +123,6 @@ input[type="checkbox"]:checked {
     min-width: 120px; 
   }
   
-  td:last-child, th:last-child {
-    width: 10%;
-  }
-
-
   td button {
       display: block;
       width: 100%;

@@ -26,93 +26,103 @@ const drinks = [
   {
     name: "KARUOSU",
     japaneseName: "かるおす",
-    quantity: 0,
+    quantity: null,
     requiredQuantity: 20,
   },
   {
     name: "MATTARI",
     japaneseName: "まったり",
-    quantity: 0,
+    quantity: null,
     requiredQuantity: 20,
   },
   {
     name: "MATCHA",
     japaneseName: "抹茶ビール",
-    quantity: 0,
+    quantity: null,
     requiredQuantity: 20,
   },
   {
     name: "JUNMAISHU",
     japaneseName: "京の地酒 純米酒",
-    quantity: 0,
+    quantity: null,
     requiredQuantity: 10,
   },
   {
     name: "ASAHI_SUPER_DRY",
     japaneseName: "アサヒスーパードライ",
-    quantity: 0,
+    quantity: null,
     requiredQuantity: 10,
   },
   {
     name: "YUZU_CHUHAI",
     japaneseName: "柚子チューハイ",
-    quantity: 0,
+    quantity: null,
     requiredQuantity: 10,
   },
   {
     name: "UME_CHUHAI",
     japaneseName: "梅チューハイ",
-    quantity: 0,
+    quantity: null,
     requiredQuantity: 10,
   },
   {
     name: "GYOKURO_UMESHU",
     japaneseName: "玉露梅酒",
-    quantity: 0,
+    quantity: null,
     requiredQuantity: 10,
   },
   {
     name: "HANNARI_UMESHU",
     japaneseName: "京はんなり梅酒",
-    quantity: 0,
+    quantity: null,
     requiredQuantity: 10,
   },
   {
     name: "YUZU_CIDER",
     japaneseName: "ゆずサイダー",
-    quantity: 0,
+    quantity: null,
     requiredQuantity: 15,
   },
-  { name: "COLA", japaneseName: "コーラ", quantity: 0, requiredQuantity: 10 },
+  {
+    name: "COLA",
+    japaneseName: "コーラ",
+    quantity: null,
+    requiredQuantity: 10,
+  },
   {
     name: "ALL_FREE",
     japaneseName: "オールフリー",
-    quantity: 0,
+    quantity: null,
     requiredQuantity: 10,
   },
   {
     name: "JURAKUDAI",
     japaneseName: "聚楽第",
-    quantity: 0,
+    quantity: null,
     requiredQuantity: 1,
   },
   {
     name: "KINSHIMASAMUNE",
     japaneseName: "金鵄政宗",
-    quantity: 0,
+    quantity: null,
     requiredQuantity: 1,
   },
-  { name: "TAMAGAWA", japaneseName: "玉川", quantity: 0, requiredQuantity: 1 },
+  {
+    name: "TAMAGAWA",
+    japaneseName: "玉川",
+    quantity: null,
+    requiredQuantity: 1,
+  },
   {
     name: "GESSHOU",
     japaneseName: "げっしょう",
-    quantity: 0,
+    quantity: null,
     requiredQuantity: 1,
   },
   {
     name: "ORANGE",
     japaneseName: "オレンジジュース",
-    quantity: 0,
+    quantity: null,
     requiredQuantity: 2,
   },
 ];
@@ -132,7 +142,6 @@ async function initializeInventory() {
       console.error(`エラー: ${item.name} の登録に失敗`, error);
     }
   }
-  loadInventory();
 }
 
 function renderTable() {
@@ -143,12 +152,12 @@ function renderTable() {
     row.innerHTML = `
             <td>${item.japaneseName}</td>
             <td>${item.requiredQuantity}</td>
-            <td><input type="number" value="${item.quantity}" onchange="updateQuantity(${index}, this.value)"></td>
-            <td><input type="checkbox" ></td>
+            <td><input id="inputQuantity" type="number" value="${item.quantity}" onchange="updateQuantity(${index}, this.value)"></td>
         `;
     table.appendChild(row);
   });
 }
+
 function updateQuantity(index, quantity) {
   if (isNaN(quantity) || quantity < 0) {
     alert("在庫数は0以上の数値を入力してください。");
@@ -167,42 +176,32 @@ async function updateInventory() {
     await batch.commit();
 
     alert("在庫データを更新しました");
-    loadInventory();
   } catch (error) {
     console.error("更新エラー:", error);
   }
 }
 
-async function loadInventory() {
-  try {
-    const querySnapshot = await getDocs(collection(db, "inventory"));
-    inventory = drinks.map((item) => {
-      const docData = querySnapshot.docs.find((doc) => doc.id === item.name);
-      return {
-        id: item.name,
-        name: item.name,
-        requiredQuantity: item.requiredQuantity,
-        japaneseName: item.japaneseName,
-        quantity: docData ? docData.data().quantity : 0,
-      };
-    });
-    renderTable();
-  } catch (error) {
-    console.error("読み込みエラー: ", error);
-  }
-}
-
 document.addEventListener("DOMContentLoaded", () => {
-  loadInventory();
+  renderTable();
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  document
-    .getElementById("updateInventory")
-    .addEventListener("click", updateInventory);
-  loadInventory();
+  document.getElementById("updateInventory").addEventListener("click", () => {
+    const hasEmptyField = inventory.some((item) => {
+      if (item.quantity === null) {
+        alert("入力されていない項目があります。");
+        return true;
+      }
+      return false;
+    });
+    if (hasEmptyField) return;
+    updateInventory();
+    inventory.forEach((item) => {
+      item.quantity = null;
+    });
+    renderTable();
+  });
 });
 
 window.updateQuantity = updateQuantity;
 window.initializeInventory = initializeInventory;
-window.loadInventory = loadInventory;
