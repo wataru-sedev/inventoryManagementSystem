@@ -152,6 +152,7 @@ function renderTable() {
     row.innerHTML = `
             <td>${item.japaneseName}</td>
             <td>${item.requiredQuantity}</td>
+            <td><input type="number"></td>
             <td><input id="inputQuantity" type="number" value="${item.quantity}" onchange="updateQuantity(${index}, this.value)"></td>
         `;
     table.appendChild(row);

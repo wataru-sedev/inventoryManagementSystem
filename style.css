@@ -12,11 +12,13 @@ table {
   border-radius: 4px;
 }
 
-.column1{width: 50%;}
+.column1{width: 40%;}
 
 .column2{width: 20%;}
 
 .column3{width: 20%;}
+
+.column4{width: 20%;}
 
 th, td {
   padding: 12px 8px;
@@ -108,19 +110,6 @@ input[type="checkbox"]:checked {
     min-width: 80px; 
     padding: 12px 8px;
     font-size: 14px;
-  }
-    
-  td:first-child, th:first-child {
-      width: 50%;
-  }
-  
-  td:nth-child(2), th:nth-child(2) {
-    width: 20%;
-    min-width: 120px; 
-  }
-  td:nth-child(3), th:nth-child(3) {
-    width: 20%;
-    min-width: 120px; 
   }
   
   td button {
