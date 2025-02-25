@@ -23,29 +23,101 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 const drinks = [
-  { name: "KARUOSU", japaneseName: "かるおす", quantity: 0 },
-  { name: "MATTARI", japaneseName: "まったり", quantity: 0 },
-  { name: "MATCHA", japaneseName: "抹茶ビール", quantity: 0 },
-  { name: "JUNMAISHU", japaneseName: "京の地酒 純米酒", quantity: 0 },
+  {
+    name: "KARUOSU",
+    japaneseName: "かるおす",
+    quantity: 0,
+    requiredQuantity: 20,
+  },
+  {
+    name: "MATTARI",
+    japaneseName: "まったり",
+    quantity: 0,
+    requiredQuantity: 20,
+  },
+  {
+    name: "MATCHA",
+    japaneseName: "抹茶ビール",
+    quantity: 0,
+    requiredQuantity: 20,
+  },
+  {
+    name: "JUNMAISHU",
+    japaneseName: "京の地酒 純米酒",
+    quantity: 0,
+    requiredQuantity: 10,
+  },
   {
     name: "ASAHI_SUPER_DRY",
     japaneseName: "アサヒスーパードライ",
     quantity: 0,
+    requiredQuantity: 10,
   },
-  { name: "YUZU_CHUHAI", japaneseName: "柚子チューハイ", quantity: 0 },
-  { name: "UME_CHUHAI", japaneseName: "梅チューハイ", quantity: 0 },
-  { name: "GYOKURO_UMESHU", japaneseName: "玉露梅酒", quantity: 0 },
-  { name: "HANNARI_UMESHU", japaneseName: "京はんなり梅酒", quantity: 0 },
-
-  { name: "YUZU_CIDER", japaneseName: "ゆずサイダー", quantity: 0 },
-  { name: "COLA", japaneseName: "コーラ", quantity: 0 },
-  { name: "ALL_FREE", japaneseName: "オールフリー", quantity: 0 },
-  { name: "JURAKUDAI", japaneseName: "聚楽第", quantity: 0 },
-  { name: "KINSHIMASAMUNE", japaneseName: "金鵄政宗", quantity: 0 },
-  { name: "TAMAGAWA", japaneseName: "玉川", quantity: 0 },
-  { name: "GESSHOU", japaneseName: "げっしょう", quantity: 0 },
-  { name: "ORANGE", japaneseName: "オレンジジュース", quantity: 0 },
+  {
+    name: "YUZU_CHUHAI",
+    japaneseName: "柚子チューハイ",
+    quantity: 0,
+    requiredQuantity: 10,
+  },
+  {
+    name: "UME_CHUHAI",
+    japaneseName: "梅チューハイ",
+    quantity: 0,
+    requiredQuantity: 10,
+  },
+  {
+    name: "GYOKURO_UMESHU",
+    japaneseName: "玉露梅酒",
+    quantity: 0,
+    requiredQuantity: 10,
+  },
+  {
+    name: "HANNARI_UMESHU",
+    japaneseName: "京はんなり梅酒",
+    quantity: 0,
+    requiredQuantity: 10,
+  },
+  {
+    name: "YUZU_CIDER",
+    japaneseName: "ゆずサイダー",
+    quantity: 0,
+    requiredQuantity: 15,
+  },
+  { name: "COLA", japaneseName: "コーラ", quantity: 0, requiredQuantity: 10 },
+  {
+    name: "ALL_FREE",
+    japaneseName: "オールフリー",
+    quantity: 0,
+    requiredQuantity: 10,
+  },
+  {
+    name: "JURAKUDAI",
+    japaneseName: "聚楽第",
+    quantity: 0,
+    requiredQuantity: 1,
+  },
+  {
+    name: "KINSHIMASAMUNE",
+    japaneseName: "金鵄政宗",
+    quantity: 0,
+    requiredQuantity: 1,
+  },
+  { name: "TAMAGAWA", japaneseName: "玉川", quantity: 0, requiredQuantity: 1 },
+  {
+    name: "GESSHOU",
+    japaneseName: "げっしょう",
+    quantity: 0,
+    requiredQuantity: 1,
+  },
+  {
+    name: "ORANGE",
+    japaneseName: "オレンジジュース",
+    quantity: 0,
+    requiredQuantity: 2,
+  },
 ];
+
+let inventory = drinks;
 
 async function initializeInventory() {
   const inventoryRef = collection(db, "inventory");
@@ -63,8 +135,6 @@ async function initializeInventory() {
   loadInventory();
 }
 
-let inventory = drinks;
-
 function renderTable() {
   const table = document.getElementById("inventoryTable");
   table.innerHTML = "";
@@ -72,6 +142,7 @@ function renderTable() {
     const row = document.createElement("tr");
     row.innerHTML = `
             <td>${item.japaneseName}</td>
+            <td>${item.requiredQuantity}</td>
             <td><input type="number" value="${item.quantity}" onchange="updateQuantity(${index}, this.value)"></td>
             <td><input type="checkbox" ></td>
         `;
@@ -110,6 +181,7 @@ async function loadInventory() {
       return {
         id: item.name,
         name: item.name,
+        requiredQuantity: item.requiredQuantity,
         japaneseName: item.japaneseName,
         quantity: docData ? docData.data().quantity : 0,
       };

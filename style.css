@@ -6,10 +6,19 @@ body {
 
 table {
   width: 100%;
+  table-layout: fixed;
   border-collapse: collapse;
   margin-top: 20px;
   border-radius: 4px;
 }
+
+.column1{width: 70%;}
+
+.column2{width: 20%;}
+
+.column3{width: 10%;}
+
+
 
 th, td {
   padding: 12px 8px;
@@ -74,7 +83,6 @@ input[type="checkbox"] {
   border: 2px solid #333;
   border-radius: 4px;
   cursor: pointer;
-  margin-right: 5px;
   position: relative;
 }
 input[type="checkbox"]:checked {
@@ -106,39 +114,57 @@ input[type="checkbox"]:checked {
     font-size: 14px;
   }
     
-    td:first-child, th:first-child {
-      width: 20%;
+  td:first-child, th:first-child {
+      width: 50%;
   }
   
   td:nth-child(2), th:nth-child(2) {
-    width: 50%;
+    width: 20%;
+    min-width: 120px; 
+  }
+  td:nth-child(3), th:nth-child(3) {
+    width: 20%;
     min-width: 120px; 
   }
   
   td:last-child, th:last-child {
-    width: 30%;
+    width: 10%;
   }
 
 
-    td button {
-        display: block;
-        width: 100%;
-        margin: 5px 0;
-    }
-
-    input[type="number"] {
+  td button {
+      display: block;
       width: 100%;
-      max-width: 80px;
-      font-size: 16px;  
-      padding: 8px 4px;
+      margin: 5px 0;
   }
 
-    button {
-      width: 100%;
-      margin: 10px 0;
-      padding: 12px;
-      font-size: 16px;
+  input[type="number"] {
+    width: 80%;
+    max-width: 80px;
+    font-size: 16px;  
+    padding: 8px 4px;
   }
+
+  button {
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    font-size: 16px;
+  }
+  .styled-link {
+    font-size: 16px;
+    background-color: #4CAF50; 
+    font-weight: bold;
+    color: white;
+    border-radius: 8px;
+    transition: 0.3s;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    padding: 10px 24px;
+    width: 85%;
+  }
+  
 }
 @media (min-width: 769px) and (max-width: 1024px) {
   .button-container {
