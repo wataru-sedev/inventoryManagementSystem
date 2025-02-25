@@ -111,6 +111,23 @@ input[type="checkbox"]:checked {
     padding: 12px 8px;
     font-size: 14px;
   }
+
+  td:first-child, th:first-child {
+    width: 40%;
+  }
+
+  td:nth-child(2), th:nth-child(2) {
+    width: 20%;
+    min-width: 120px; 
+  }
+  td:nth-child(3), th:nth-child(3) {
+    width: 20%;
+    min-width: 120px; 
+  }
+  td:nth-child(4), th:nth-child(4) {
+    width: 20%;
+    min-width: 120px; 
+  }
   
   td button {
       display: block;
