@@ -26,6 +26,7 @@ const drinks = [
   { name: "KARUOSU", japaneseName: "かるおす", quantity: 0 },
   { name: "MATTARI", japaneseName: "まったり", quantity: 0 },
   { name: "MATCHA", japaneseName: "抹茶ビール", quantity: 0 },
+  { name: "JUNMAISHU", japaneseName: "京の地酒 純米酒", quantity: 0 },
   {
     name: "ASAHI_SUPER_DRY",
     japaneseName: "アサヒスーパードライ",
@@ -35,7 +36,7 @@ const drinks = [
   { name: "UME_CHUHAI", japaneseName: "梅チューハイ", quantity: 0 },
   { name: "GYOKURO_UMESHU", japaneseName: "玉露梅酒", quantity: 0 },
   { name: "HANNARI_UMESHU", japaneseName: "京はんなり梅酒", quantity: 0 },
-  { name: "JUNMAISHU", japaneseName: "京の地酒 純米酒", quantity: 0 },
+
   { name: "YUZU_CIDER", japaneseName: "ゆずサイダー", quantity: 0 },
   { name: "COLA", japaneseName: "コーラ", quantity: 0 },
   { name: "ALL_FREE", japaneseName: "オールフリー", quantity: 0 },
@@ -69,10 +70,10 @@ function renderTable() {
   table.innerHTML = "";
   inventory.forEach((item, index) => {
     const row = document.createElement("tr");
-
     row.innerHTML = `
             <td>${item.japaneseName}</td>
             <td><input type="number" value="${item.quantity}" onchange="updateQuantity(${index}, this.value)"></td>
+            <td><input type="checkbox" ></td>
         `;
     table.appendChild(row);
   });
