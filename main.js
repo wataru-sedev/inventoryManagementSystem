@@ -182,6 +182,25 @@ async function updateInventory() {
   }
 }
 
+async function loadInventory() {
+  try {
+    const querySnapshot = await getDocs(collection(db, "inventory"));
+    inventory = drinks.map((item) => {
+      const docData = querySnapshot.docs.find((doc) => doc.id === item.name);
+      return {
+        id: item.name,
+        name: item.name,
+        requiredQuantity: item.requiredQuantity,
+        japaneseName: item.japaneseName,
+        quantity: docData ? docData.data().quantity : 0,
+      };
+    });
+    renderTable();
+  } catch (error) {
+    console.error("読み込みエラー: ", error);
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   renderTable();
 });
@@ -201,6 +220,13 @@ document.addEventListener("DOMContentLoaded", () => {
       item.quantity = null;
     });
     renderTable();
+  });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("loadInventory").addEventListener("click", () => {
+    loadInventory();
+    alert("在庫データを読み込みました");
   });
 });
 
