@@ -142,27 +142,6 @@ const drinks = [
     quantity: null,
     requiredQuantity: 2,
   },
-  {
-    name: "TANSAN",
-    japaneseName: "炭酸(3)",
-    memo: null,
-    quantity: null,
-    requiredQuantity: null,
-  },
-  {
-    name: "ARASHIYAMA-COLA",
-    japaneseName: "嵐山コーラ(1)",
-    memo: null,
-    quantity: null,
-    requiredQuantity: null,
-  },
-  {
-    name: "SHISO",
-    japaneseName: "しそジュース(1)",
-    memo: null,
-    quantity: null,
-    requiredQuantity: null,
-  },
 ];
 
 let inventory = JSON.parse(localStorage.getItem("inventory")) || drinks;
@@ -187,32 +166,30 @@ function renderTable() {
   table.innerHTML = "";
   inventory.forEach((item, index) => {
     const row = document.createElement("tr");
-    if (
-      !(
-        item.name === "TANSAN" ||
-        item.name === "ARASHIYAMA-COLA" ||
-        item.name === "SHISO"
-      )
-    ) {
-      row.innerHTML = `
+
+    row.innerHTML = `
             <td>${item.japaneseName}</td>
             <td><input type="number" value="${item.memo}" onChange="updateMemo(${index}, this.value)" ></td>
             <td>${item.requiredQuantity}</td>
             <td><input id="inputQuantity" type="number" value="${item.quantity}" onchange="updateQuantity(${index}, this.value)"></td>
         `;
-    } else if (item.name === "SHISO") {
-      row.innerHTML = `
-            <td>${item.japaneseName}</td>
-            <td class="column3">Tへ返却<input type="checkbox"/></td>
-        `;
-    } else {
-      row.innerHTML = `
-            <td>${item.japaneseName}</td>
-            <td><input type="number" value="${item.memo}" onChange="updateMemo(${index}, this.value)" ></td>
-        `;
-    }
     table.appendChild(row);
   });
+  const div = `<div>
+                <tr>
+                    <td class="column1">炭酸(3)</td>
+                    <td class="column3"><input type="number" id="tansan" /></td>                   
+                </tr>
+                <tr>
+                    <td class="column1">嵐山コーラ(1)</td>
+                    <td class="column3"><input type="number" id="arashiyama"/></td>                   
+                </tr>
+                <tr>
+                    <td class="column1">しそジュース</td>
+                    <td class="column3">Tへ返却<input type="checkbox" /></td>
+                </tr>
+            </div>`;
+  table.insertAdjacentHTML("beforeend", div);
 }
 
 function updateQuantity(index, quantity) {
