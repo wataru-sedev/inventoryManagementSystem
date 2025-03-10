@@ -143,7 +143,7 @@ const drinks = [
     requiredQuantity: 2,
   },
 ];
-localStorage.clear();
+
 let inventory = JSON.parse(localStorage.getItem("inventory")) || drinks;
 
 async function initializeInventory() {
@@ -241,6 +241,7 @@ async function loadInventory() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  inventory = JSON.parse(localStorage.getItem("inventory")) || drinks;
   renderTable();
 });
 
