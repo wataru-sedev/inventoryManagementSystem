@@ -26,108 +26,125 @@ const drinks = [
   {
     name: "KARUOSU",
     japaneseName: "かるおす(10)",
+    memo: null,
     quantity: null,
     requiredQuantity: 20,
   },
   {
     name: "MATTARI",
     japaneseName: "まったり(10)",
+    memo: null,
     quantity: null,
     requiredQuantity: 20,
   },
   {
     name: "MATCHA",
     japaneseName: "抹茶ビール(5)",
+    memo: null,
     quantity: null,
     requiredQuantity: 20,
   },
   {
     name: "JUNMAISHU",
     japaneseName: "京の地酒 純米酒(5)",
+    memo: null,
     quantity: null,
     requiredQuantity: 10,
   },
   {
     name: "ASAHI_SUPER_DRY",
     japaneseName: "アサヒスーパードライ(10)",
+    memo: null,
     quantity: null,
     requiredQuantity: 10,
   },
   {
     name: "YUZU_CHUHAI",
     japaneseName: "柚子チューハイ(5)",
+    memo: null,
     quantity: null,
     requiredQuantity: 10,
   },
   {
     name: "UME_CHUHAI",
     japaneseName: "梅チューハイ(5)",
+    memo: null,
     quantity: null,
     requiredQuantity: 10,
   },
   {
     name: "GYOKURO_UMESHU",
     japaneseName: "玉露梅酒(5)",
+    memo: null,
     quantity: null,
     requiredQuantity: 10,
   },
   {
     name: "HANNARI_UMESHU",
     japaneseName: "京はんなり梅酒(5)",
+    memo: null,
     quantity: null,
     requiredQuantity: 10,
   },
   {
     name: "YUZU_CIDER",
     japaneseName: "ゆずサイダー(10)",
+    memo: null,
     quantity: null,
     requiredQuantity: 15,
   },
   {
     name: "COLA",
     japaneseName: "コーラ(10)",
+    memo: null,
     quantity: null,
     requiredQuantity: 10,
   },
   {
     name: "ALL_FREE",
     japaneseName: "オールフリー(8)",
+    memo: null,
     quantity: null,
     requiredQuantity: 10,
   },
   {
     name: "JURAKUDAI",
     japaneseName: "聚楽第(1)",
+    memo: null,
     quantity: null,
     requiredQuantity: 1,
   },
   {
     name: "KINSHIMASAMUNE",
     japaneseName: "金鵄政宗(1)",
+    memo: null,
     quantity: null,
     requiredQuantity: 1,
   },
   {
     name: "TAMAGAWA",
     japaneseName: "玉川(1)",
+    memo: null,
     quantity: null,
     requiredQuantity: 1,
   },
   {
     name: "GESSHOU",
     japaneseName: "げっしょう(1)",
+    memo: null,
     quantity: null,
     requiredQuantity: 1,
   },
   {
     name: "ORANGE",
     japaneseName: "オレンジジュース(2/3)",
+    memo: null,
     quantity: null,
     requiredQuantity: 2,
   },
 ];
 
-let inventory = drinks;
+let inventory = JSON.parse(localStorage.getItem("inventory")) || drinks;
 
 async function initializeInventory() {
   const inventoryRef = collection(db, "inventory");
@@ -151,8 +168,8 @@ function renderTable() {
     const row = document.createElement("tr");
     row.innerHTML = `
             <td>${item.japaneseName}</td>
+            <td><input type="number" value="${item.memo}" onChange="updateMemo(${index}, this.value)" ></td>
             <td>${item.requiredQuantity}</td>
-            <td><input type="number"></td>
             <td><input id="inputQuantity" type="number" value="${item.quantity}" onchange="updateQuantity(${index}, this.value)"></td>
         `;
     table.appendChild(row);
@@ -165,6 +182,13 @@ function updateQuantity(index, quantity) {
     return;
   }
   inventory[index].quantity = parseInt(quantity, 10);
+  localStorage.setItem("inventory", JSON.stringify(inventory));
+  console.log(localStorage);
+}
+
+function updateMemo(index, memo) {
+  inventory[index].memo = parseInt(memo, 10);
+  localStorage.setItem("inventory", JSON.stringify(inventory));
 }
 
 async function updateInventory() {
@@ -232,3 +256,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
 window.updateQuantity = updateQuantity;
 window.initializeInventory = initializeInventory;
+window.updateMemo = updateMemo;

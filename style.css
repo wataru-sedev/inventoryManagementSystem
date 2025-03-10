@@ -73,7 +73,7 @@ button:hover {
 }
 
 .loadInventoryContainer{
-  margin: 20px;
+  margin-top: 20px;
 }
 input[type="number"] {
   width: 70px;
