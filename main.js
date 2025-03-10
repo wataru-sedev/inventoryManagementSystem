@@ -142,6 +142,27 @@ const drinks = [
     quantity: null,
     requiredQuantity: 2,
   },
+  {
+    name: "TANSAN",
+    japaneseName: "炭酸(3)",
+    memo: null,
+    quantity: null,
+    requiredQuantity: null,
+  },
+  {
+    name: "ARASHIYAMA-COLA",
+    japaneseName: "嵐山コーラ(1)",
+    memo: null,
+    quantity: null,
+    requiredQuantity: null,
+  },
+  {
+    name: "SHISO",
+    japaneseName: "しそジュース(1)",
+    memo: null,
+    quantity: null,
+    requiredQuantity: null,
+  },
 ];
 
 let inventory = JSON.parse(localStorage.getItem("inventory")) || drinks;
@@ -166,12 +187,30 @@ function renderTable() {
   table.innerHTML = "";
   inventory.forEach((item, index) => {
     const row = document.createElement("tr");
-    row.innerHTML = `
+    if (
+      !(
+        item.name === "TANSAN" ||
+        item.name === "ARASHIYAMA-COLA" ||
+        item.name === "SHISO"
+      )
+    ) {
+      row.innerHTML = `
             <td>${item.japaneseName}</td>
             <td><input type="number" value="${item.memo}" onChange="updateMemo(${index}, this.value)" ></td>
             <td>${item.requiredQuantity}</td>
             <td><input id="inputQuantity" type="number" value="${item.quantity}" onchange="updateQuantity(${index}, this.value)"></td>
         `;
+    } else if (item.name === "SHISO") {
+      row.innerHTML = `
+            <td>${item.japaneseName}</td>
+            <td class="column3">Tへ返却<input type="checkbox"/></td>
+        `;
+    } else {
+      row.innerHTML = `
+            <td>${item.japaneseName}</td>
+            <td><input type="number" value="${item.memo}" onChange="updateMemo(${index}, this.value)" ></td>
+        `;
+    }
     table.appendChild(row);
   });
 }
@@ -183,7 +222,6 @@ function updateQuantity(index, quantity) {
   }
   inventory[index].quantity = parseInt(quantity, 10);
   localStorage.setItem("inventory", JSON.stringify(inventory));
-  console.log(localStorage);
 }
 
 function updateMemo(index, memo) {
@@ -242,6 +280,8 @@ document.addEventListener("DOMContentLoaded", () => {
     updateInventory();
     inventory.forEach((item) => {
       item.quantity = null;
+      item.memo = null;
+      localStorage.clear();
     });
     renderTable();
   });
