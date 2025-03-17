@@ -8,10 +8,7 @@
     
 </head>
 <body>
-    <div class="button-container">
-        <button id="updateInventory">データベース更新</button> 
-        <a class="styled-link" target="_blank" rel="noopener noreferrer" href="https://script.google.com/macros/s/AKfycbxWsjfE2gz0n70h8ButkbG94mqva3Vy7RKh1VBEH-YciWWrtXleLGndYtNqN6JqA-bq/exec">スプレッドシート更新</a>
-    </div>
+    <button id="loadInventory" class="load-data">前回データを読み込む</button>
     <div class="table-container">
         <table>
             <thead>
@@ -25,8 +22,9 @@
             <tbody id="inventoryTable"></tbody>
         </table>
     </div>
-    <div class="loadInventoryContainer">
-        <button id="loadInventory">在庫データ読み込み</button>
+    <div class="button-container">
+        <button id="updateInventory" class="complete-input">入力完了</button> 
+        <a class="styled-link" target="_blank" rel="noopener noreferrer" href="https://script.google.com/macros/s/AKfycbxWsjfE2gz0n70h8ButkbG94mqva3Vy7RKh1VBEH-YciWWrtXleLGndYtNqN6JqA-bq/exec">店長に送信</a>
     </div>
     <div>
         <a target="_blank" rel="noopener noreferrer" href="https://docs.google.com/document/d/1cKC3kfJXX1ud_4tzcnM3YoDFRKUq-mBH6aM5HtZ19XQ/edit?usp=sharin">ドリンク在庫管理システム使い方マニュアル</a>

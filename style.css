@@ -33,7 +33,6 @@ th {
 
 button {
   font-size: 16px;;
-  background-color: #2385d4;
   font-weight: bold;
   color: white;
   border: none;
@@ -42,6 +41,18 @@ button {
   padding: 12px 24px;
   width: 100%;
   line-height: 1.5;
+}
+.complete-input{
+  background-color: #2385d4;
+}
+.complete-input:hover{
+  background-color: #0056b3;
+}
+.load-data{
+  background-color: #008080;
+}
+.load-data:hover{
+  background-color: #005b5b;
 }
 
 .styled-link {
@@ -59,22 +70,19 @@ button {
 }
 
 button:hover {
-  background-color: #0056b3;
-  color: #fff;
   cursor: pointer;
 }
+
 .styled-link:hover {
   background-color:  #45a049; 
 }
 .button-container{
   display: flex;
   gap:10px;
-  margin-bottom: 5px;
+  margin: 10px 0;
 }
 
-.loadInventoryContainer{
-  margin-top: 20px;
-}
+
 input[type="number"] {
   width: 70px;
   padding: 8px;
