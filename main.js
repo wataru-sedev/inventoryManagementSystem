@@ -25,14 +25,14 @@ const db = getFirestore(app);
 const drinks = [
   {
     name: "KARUOSU",
-    japaneseName: "かるおす(10)",
+    japaneseName: "ケルシュ（青）(10)",
     memo: null,
     quantity: null,
     requiredQuantity: 20,
   },
   {
     name: "MATTARI",
-    japaneseName: "まったり(10)",
+    japaneseName: "アルト（赤）(10)",
     memo: null,
     quantity: null,
     requiredQuantity: 20,
